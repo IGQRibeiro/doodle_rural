@@ -33,8 +33,8 @@ h1, h2 {
 }
 
 .elemento img {
-  width: 65px;
-  height: 65px;
+  width: 80px;
+  height: 80px;
   display: block;
   margin: 0 auto 5px;
 }
@@ -79,4 +79,112 @@ h1, h2 {
 .elemento.selecionado {
   background-color: #d1f2eb;
   border-color: #1abc9c;
+}
+
+button {
+  background-color: #4CAF50; /* verde cooperativo */
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+}
+
+button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.botao-verde {
+  background-color: #27ae60;
+}
+
+.botao-verde:hover {
+  background-color: #229954;
+}
+
+.botao-vermelho {
+  background-color: #e74c3c;
+}
+
+.botao-vermelho:hover {
+  background-color: #c0392b;
+}
+
+.botao-musica {
+  background-color: #2980b9;
+}
+
+.botao-musica:hover {
+  background-color: #2471a3;
+}
+
+.botao-dica {
+  background-color: #f39c12;
+}
+.botao-dica:hover {
+  background-color: #d68910;
+}
+
+#dicaTexto {
+  margin-top: 10px;
+  font-style: italic;
+  color: #7f8c8d;
+}
+
+.dica-fixa {
+  margin-top: 10px;
+  padding: 12px;
+  background-color: #fcf3cf;
+  color: #7d6608;
+  border: 1px solid #f1c40f;
+  border-radius: 8px;
+  font-style: italic;
+  /*min-height: 40px;*/
+  max-width: 500px;
+  text-align: center;
+}
+
+.dica-timer {
+  margin-top: 10px;
+  margin-bottom: 7px;
+  padding: 12px;
+  background-color: #ede9e9;
+  border: 1px solid #cbc6c6;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #999;
+  font-style: italic;
+  /*min-height: 40px;*/
+  max-width: 500px;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  #dicaContainer > div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.ampulheta-girando {
+  display: inline-block;
+  margin-right: 6px;
+  animation: girarAmpulheta 1s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes girarAmpulheta {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

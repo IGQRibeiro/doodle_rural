@@ -2,6 +2,10 @@ let descobertos = JSON.parse(localStorage.getItem("descobertos")) || [...ELEMENT
 let selecionados = [];
 let historico = JSON.parse(localStorage.getItem("historico")) || [];
 
+let podeDarDica = true;
+let tempoRestante = 0;
+let intervaloDica = null;
+
 function salvarProgresso() {
   localStorage.setItem("descobertos", JSON.stringify(descobertos));
   localStorage.setItem("historico", JSON.stringify(historico));
@@ -80,7 +84,7 @@ function combinar() {
     if (!descobertos.includes(resultado)) {
       descobertos.push(resultado);
       resEl.innerText = `✨ Novo elemento criado: ${resultado}`;
-      somDescoberta.volume = 0.2;
+      somDescoberta.volume = 0.1;
       somDescoberta.currentTime = 0;
       somDescoberta.play();
     } else {
@@ -120,20 +124,32 @@ function resetarJogo() {
     localStorage.removeItem("descobertos");
     localStorage.removeItem("historico");
     localStorage.removeItem("final_exibido");
+
     descobertos = [...ELEMENTOS_INICIAIS];
     historico = [];
     selecionados = [];
-        const musica = document.getElementById("musicaFundo");
+
+    clearInterval(intervaloDica);
+    podeDarDica = true;
+    tempoRestante = 0;
+    document.getElementById("dicaTexto").innerText = "Nenhuma dica exibida ainda.";
+    document.getElementById("dicaTimer").innerText = "Você ainda não pediu nenhuma dica.";
+
+    const musica = document.getElementById("musicaFundo");
     if (musica && !musica.paused) {
       musica.pause();
       musica.currentTime = 0;
     }
+
     atualizarElementos();
     document.getElementById("resultado").innerText = "Jogo resetado!";
-        mostrarHistoria(true);
-
+    mostrarHistoria(true);
   }
 }
+
+
+
+
 
 function mostrarHistoria(inicio = true) {
   const texto = document.getElementById("textoHistoria");
@@ -164,7 +180,7 @@ function fecharModal() {
   document.getElementById("modalHistoria").style.display = "none";
   const musica = document.getElementById("musicaFundo");
   if (musica.paused) {
-    musica.volume = 0.08; // opcional: diminui volume
+    musica.volume = 0.03; // opcional: diminui volume
     musica.play().catch(() => {});
   }
 }
@@ -185,12 +201,58 @@ function iniciarJogo() {
 
   const musica = document.getElementById("musicaFundo");
   if (musica && musica.paused) {
-    musica.volume = 0.3;
+    musica.volume = 0.03;
     musica.play().catch(() => {});
   }
 }
 
+function mostrarDica() {
+  const dicaTexto = document.getElementById("dicaTexto");
+  const dicaTimer = document.getElementById("dicaTimer");
 
+  if (!podeDarDica) {
+    dicaTimer.innerText = `⏳ Aguarde ${tempoRestante}s para a próxima dica.`;
+    return;
+  }
+
+  // Filtra dicas que são possíveis com elementos já descobertos
+  const dicasPossiveis = Object.entries(COMBINACOES).filter(([chave, resultado]) => {
+    const [a, b] = chave.split("+");
+    return (
+      descobertos.includes(a) &&
+      descobertos.includes(b) &&
+      !descobertos.includes(resultado)
+    );
+  });
+
+  if (dicasPossiveis.length === 0) {
+    dicaTexto.innerText = "🎉 Você já descobriu todos os elementos disponíveis no momento!";
+    dicaTimer.innerText = "";
+    return;
+  }
+
+  const [comb] = dicasPossiveis[Math.floor(Math.random() * dicasPossiveis.length)];
+  const [a, b] = comb.split("+");
+
+  // Mostra dica sem sobrescrever no futuro
+  dicaTexto.innerText = `💡 Dica: tente combinar "${a}" + "${b}"`;
+  dicaTimer.innerText = `⏳ Próxima dica disponível em 30s`;
+
+  // Inicia cooldown
+  podeDarDica = false;
+  tempoRestante = 30;
+
+  intervaloDica = setInterval(() => {
+    tempoRestante--;
+    if (tempoRestante > 0) {
+      dicaTimer.innerText = `⏳ Próxima dica disponível em ${tempoRestante}s`;
+    } else {
+      clearInterval(intervaloDica);
+      podeDarDica = true;
+      dicaTimer.innerText = `💡 Pronto para uma nova dica!`;
+    }
+  }, 1000);
+}
 
 // Inicializa o jogo
 window.onload = () => {

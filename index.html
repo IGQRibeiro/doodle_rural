@@ -20,7 +20,7 @@
       Explore as possibilidades do campo tecnológico e da organização coletiva!
     </p>
 
-    <button onclick="iniciarJogo()">🚜 Começar Jogo</button>
+    <button class="botao-verde" onclick="iniciarJogo()">🚜 Começar Jogo</button>
 
     <hr style="margin: 20px 0;" />
     <small>Desenvolvido por Gabriel Ribeiro · 2025</small><br>
@@ -30,7 +30,7 @@
 
   <h1>Doodle dos Programadores Rurais</h1>
 
-  <button onclick="alternarMusica()">🎵 Pausar/Tocar Música</button>
+  <button class="botao-musica" onclick="alternarMusica()">🎵 Música</button>
 
 
   <section id="painel-elementos">
@@ -46,6 +46,17 @@
     <p id="resultado"></p>
   </section>
 
+  <!-- Área fixa de dicas -->
+  <div id="dicaContainer" style="margin-top: 40px;">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <button class="botao-dica" onclick="mostrarDica()">💡 Obter Dica</button>
+      <span id="dicaTimer" class="dica-timer">Você ainda não pediu nenhuma dica.</span>
+    </div>
+
+    <div id="dicaTexto" class="dica-fixa">Nenhuma dica exibida ainda.</div>
+  </div>
+
+
   <audio id="somDescoberta" src="sons/novo_elemento.mp3" preload="auto"></audio>
 
   <section id="historico">
@@ -53,7 +64,7 @@
     <ul id="lista-historico"></ul>
   </section>
 
-  <button onclick="resetarJogo()">🔄 Resetar Jogo</button>
+  <button class="botao-vermelho" onclick="resetarJogo()">🔄 Resetar Jogo</button>
 
 
   <div id="modalHistoria" class="modal" style="display: none;">
