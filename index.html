@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Doodle Rural</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <h1>Doodle dos Programadores Rurais</h1>
+
+  <button onclick="alternarMusica()">🎵 Pausar/Tocar Música</button>
+
+
+  <section id="painel-elementos">
+    <h2>Elementos Descobertos</h2>
+    <p id="contador">0</p>
+    <div id="descobertos" class="elementos-container"></div>
+  </section>
+
+  <section id="painel-combinacao">
+    <h2>Combinação Selecionada</h2>
+    <div id="selecionados" class="elementos-container"></div>
+    <button onclick="combinar()">Combinar</button>
+    <p id="resultado"></p>
+  </section>
+
+  <audio id="somDescoberta" src="sons/novo_elemento.mp3" preload="auto"></audio>
+
+  <section id="historico">
+    <h2>Histórico de Combinações</h2>
+    <ul id="lista-historico"></ul>
+  </section>
+
+  <button onclick="resetarJogo()">🔄 Resetar Jogo</button>
+
+
+  <div id="modalHistoria" class="modal" style="display: none;">
+    <div class="modal-content">
+        <p id="textoHistoria"></p>
+        <button onclick="fecharModal()">Começar</button>
+    </div>
+  </div>
+
+  <audio id="musicaFundo" src="sons/musica_fundo.mp3" preload="auto" loop autoplay></audio>
+
+  <script src="elementos.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
