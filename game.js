@@ -187,12 +187,17 @@ function fecharModal() {
 
 function alternarMusica() {
   const musica = document.getElementById("musicaFundo");
+  const botao = document.getElementById("botaoMusica");
+
   if (musica.paused) {
     musica.play();
+    botao.innerText = "🔊 Música Ligada";
   } else {
     musica.pause();
+    botao.innerText = "🔇 Música Pausada";
   }
 }
+
 
 function iniciarJogo() {
   document.getElementById("telaMenu").style.display = "none";
