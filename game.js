@@ -12,15 +12,17 @@ function atualizarElementos() {
   div.innerHTML = "";
   descobertos.forEach(el => {
     const item = criarElementoVisual(el);
-    item.onclick = () => selecionar(el);
+    item.onclick = () => selecionar(el); // seleciona ou desmarca ao clicar
     div.appendChild(item);
   });
 
-  // Atualiza elementos selecionados
+  // Atualiza elementos selecionados (área de combinação)
   const selDiv = document.getElementById("selecionados");
   selDiv.innerHTML = "";
   selecionados.forEach(el => {
-    selDiv.appendChild(criarElementoVisual(el));
+    const item = criarElementoVisual(el);
+    item.onclick = () => selecionar(el); // também permite remover ao clicar aqui
+    selDiv.appendChild(item);
   });
 
   // Atualiza histórico
@@ -28,12 +30,16 @@ function atualizarElementos() {
 
   // Atualiza contador
   document.getElementById("contador").innerText =
-    `Evolução: ${descobertos.length} / ${TOTAL_ELEMENTOS.length} ⚗️`;
+    `Elementos descobertos: ${descobertos.length} / ${TOTAL_ELEMENTOS.length}`;
 }
+
 
 function criarElementoVisual(nome) {
   const div = document.createElement("div");
   div.className = "elemento";
+  if (selecionados.includes(nome)) {
+    div.classList.add("selecionado");
+  }
   const img = document.createElement("img");
   img.src = `imagens/${nome}.png`;
   img.alt = nome;
@@ -44,12 +50,21 @@ function criarElementoVisual(nome) {
   return div;
 }
 
+
 function selecionar(el) {
-  if (selecionados.length < 2 && !selecionados.includes(el)) {
+  const index = selecionados.indexOf(el);
+
+  if (index !== -1) {
+    // Se já estava selecionado, remove
+    selecionados.splice(index, 1);
+  } else if (selecionados.length < 2) {
+    // Se não estava e há espaço, adiciona
     selecionados.push(el);
-    atualizarElementos();
   }
+
+  atualizarElementos();
 }
+
 
 function combinar() {
   if (selecionados.length !== 2) return;
