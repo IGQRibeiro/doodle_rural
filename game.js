@@ -65,6 +65,7 @@ function combinar() {
     if (!descobertos.includes(resultado)) {
       descobertos.push(resultado);
       resEl.innerText = `✨ Novo elemento criado: ${resultado}`;
+      somDescoberta.volume = 0.2;
       somDescoberta.currentTime = 0;
       somDescoberta.play();
     } else {
@@ -103,11 +104,19 @@ function resetarJogo() {
   if (confirm("Tem certeza que deseja resetar o jogo? Todo o progresso será perdido.")) {
     localStorage.removeItem("descobertos");
     localStorage.removeItem("historico");
+    localStorage.removeItem("final_exibido");
     descobertos = [...ELEMENTOS_INICIAIS];
     historico = [];
     selecionados = [];
+        const musica = document.getElementById("musicaFundo");
+    if (musica && !musica.paused) {
+      musica.pause();
+      musica.currentTime = 0;
+    }
     atualizarElementos();
     document.getElementById("resultado").innerText = "Jogo resetado!";
+        mostrarHistoria(true);
+
   }
 }
 
@@ -140,7 +149,7 @@ function fecharModal() {
   document.getElementById("modalHistoria").style.display = "none";
   const musica = document.getElementById("musicaFundo");
   if (musica.paused) {
-    musica.volume = 0.05; // opcional: diminui volume
+    musica.volume = 0.08; // opcional: diminui volume
     musica.play().catch(() => {});
   }
 }
@@ -154,12 +163,21 @@ function alternarMusica() {
   }
 }
 
+function iniciarJogo() {
+  document.getElementById("telaMenu").style.display = "none";
+  atualizarElementos();
+  mostrarHistoria(true);
+
+  const musica = document.getElementById("musicaFundo");
+  if (musica && musica.paused) {
+    musica.volume = 0.3;
+    musica.play().catch(() => {});
+  }
+}
 
 
 
 // Inicializa o jogo
 window.onload = () => {
-  atualizarElementos();
-  mostrarHistoria(true);
 };
 

@@ -58,3 +58,20 @@ h1, h2 {
   text-align: center;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
+
+.modal-content img {
+  display: block;
+  margin: 0 auto;
+}
+.modal-content button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #2ecc71;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+.modal-content button:hover {
+  background: #27ae60;
+}
