@@ -25,11 +25,10 @@ function atualizarElementos() {
   selDiv.innerHTML = "";
   selecionados.forEach(el => {
     const item = criarElementoVisual(el);
-    item.onclick = () => selecionar(el); // também permite remover ao clicar aqui
+    item.onclick = () => selecionar(el); // remover ao clicar aqui
     selDiv.appendChild(item);
   });
 
-  // Atualiza histórico
   atualizarHistorico();
 
   // Atualiza contador
@@ -59,10 +58,10 @@ function selecionar(el) {
   const index = selecionados.indexOf(el);
 
   if (index !== -1) {
-    // Se já estava selecionado, remove
+    // se ja estava selecionado remove
     selecionados.splice(index, 1);
   } else if (selecionados.length < 2) {
-    // Se não estava e há espaço, adiciona
+    // se nao estava e tem espaço adiciona
     selecionados.push(el);
   }
 
@@ -180,7 +179,7 @@ function fecharModal() {
   document.getElementById("modalHistoria").style.display = "none";
   const musica = document.getElementById("musicaFundo");
   if (musica.paused) {
-    musica.volume = 0.03; // opcional: diminui volume
+    musica.volume = 0.03;
     musica.play().catch(() => {});
   }
 }
