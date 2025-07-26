@@ -30,7 +30,10 @@
 
   <h1>Doodle dos Programadores Rurais</h1>
 
-  <button class="botao-musica" onclick="alternarMusica()">🎵 Música</button>
+  <div id="botoesSistema" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
+    <button class="botao-vermelho" onclick="resetarJogo()">🔄 Resetar Jogo</button>
+    <button class="botao-musica" onclick="alternarMusica()">🎵 Música</button>
+  </div>
 
 
   <section id="painel-elementos">
@@ -63,8 +66,6 @@
     <h2>Histórico de Combinações</h2>
     <ul id="lista-historico"></ul>
   </section>
-
-  <button class="botao-vermelho" onclick="resetarJogo()">🔄 Resetar Jogo</button>
 
 
   <div id="modalHistoria" class="modal" style="display: none;">
